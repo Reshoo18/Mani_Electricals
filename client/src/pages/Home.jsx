@@ -4,6 +4,7 @@ import Hero from '../components/Hero'
 import About from './About'
 import Services from './Services'
 import Product from './Product'
+import WhyChoose from './WhyChoose'
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
   <About/>
   <Services/>
   <Product/>
+  <WhyChoose/>
    </>
   )
 }
