@@ -5,6 +5,7 @@ import About from './About'
 import Services from './Services'
 import Product from './Product'
 import WhyChoose from './WhyChoose'
+import Contact from './Contact'
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
   <Services/>
   <Product/>
   <WhyChoose/>
+  <Contact/>
    </>
   )
 }

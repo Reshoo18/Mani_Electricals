@@ -1,8 +1,15 @@
+import {
+  FaPhoneAlt,
+  FaEnvelope,
+  FaMapMarkerAlt,
+} from "react-icons/fa";
+
 const Contact = () => {
   return (
     <section className="py-24 bg-gray-50" id="contact">
       <div className="max-w-7xl mx-auto px-6">
 
+        {/* Heading */}
         <div className="text-center mb-16">
           <p className="text-blue-600 font-semibold uppercase">
             Contact Us
@@ -13,8 +20,8 @@ const Contact = () => {
           </h2>
 
           <p className="mt-6 text-gray-600 max-w-2xl mx-auto">
-            Looking for Neutral Grounding Resistors or industrial electrical
-            solutions? Send us your enquiry and our team will get back to you.
+            Have a project or need a quotation? Fill out the form and
+            our team will get back to you shortly.
           </p>
         </div>
 
@@ -23,21 +30,24 @@ const Contact = () => {
           {/* Left Side */}
           <div className="space-y-8">
 
-            <div className="bg-white p-6 rounded-xl shadow">
+            <div className="bg-white shadow-md rounded-xl p-6">
+              <FaPhoneAlt className="text-3xl text-blue-600 mb-4" />
               <h3 className="text-2xl font-semibold mb-2">Phone</h3>
               <p className="text-gray-600">
                 +91 XXXXX XXXXX
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow">
+            <div className="bg-white shadow-md rounded-xl p-6">
+              <FaEnvelope className="text-3xl text-blue-600 mb-4" />
               <h3 className="text-2xl font-semibold mb-2">Email</h3>
               <p className="text-gray-600">
                 info@manielectricals.com
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow">
+            <div className="bg-white shadow-md rounded-xl p-6">
+              <FaMapMarkerAlt className="text-3xl text-blue-600 mb-4" />
               <h3 className="text-2xl font-semibold mb-2">Address</h3>
               <p className="text-gray-600">
                 Lucknow, Uttar Pradesh, India
@@ -47,7 +57,11 @@ const Contact = () => {
           </div>
 
           {/* Right Side */}
-          <div className="bg-white p-8 rounded-2xl shadow-lg">
+          <div className="bg-white shadow-lg rounded-2xl p-8">
+
+            <h3 className="text-3xl font-bold mb-6">
+              Send Us an Enquiry
+            </h3>
 
             <form className="space-y-5">
 
@@ -83,7 +97,7 @@ const Contact = () => {
 
               <button
                 type="submit"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg transition"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg transition"
               >
                 Send Enquiry
               </button>
