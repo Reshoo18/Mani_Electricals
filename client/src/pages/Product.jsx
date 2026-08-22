@@ -1,70 +1,119 @@
+import React from "react";
+
+import ngrImage from "../assets/ngr-433v.png";
+import ngrInternal from "../assets/ngr-433v-internal.png";
+import ngr11kv from "../assets/ngr-11kv.png";
+import ngrComponents from "../assets/ngr-components.png";
+
 const products = [
   {
-    name: "Neutral Grounding Resistor (NGR)",
+    title: "Restricted Neutral Grounding System",
+    category: "Featured Solution",
     description:
-      "High-performance Neutral Grounding Resistors designed for industrial power systems with reliable protection and durability.",
+      "Restricted Neutral Grounding System for 433V / 550V and 3.3KV / 6.6KV / 11KV power supply systems.",
+    image: ngrImage,
+  },
+  {
+    title: "Resin Cast Current Transformer",
+    category: "Electrical Equipment",
+    description:
+      "Resin cast current transformer equipment included in the company's electrical solution range.",
+    image: ngrComponents,
+  },
+  {
+    title: "Solid State Earth Leakage Relay",
+    category: "Protection",
+    description:
+      "Solid state earth leakage relay solution for electrical protection and monitoring applications.",
+    image: ngrInternal,
+  },
+  {
+    title: "Transformer & Circuit Breaker Spares",
+    category: "Spare Parts",
+    description:
+      "Spare parts for circuit breakers and transformers.",
+    image: ngr11kv,
   },
 ];
 
 const Product = () => {
   return (
-    <section className="py-24">
+    <section id="products" className="py-24 bg-gray-50">
+
       <div className="max-w-7xl mx-auto px-6">
 
-        <div className="text-center">
-          <p className="text-blue-600 font-semibold uppercase">
+        {/* Heading */}
+        <div className="max-w-3xl">
+
+          <p className="text-blue-600 font-bold uppercase tracking-wider">
             Our Products
           </p>
 
-          <h2 className="text-5xl font-bold mt-4">
-            Industrial Products
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mt-4">
+            Electrical Products &
+            <span className="text-blue-600">
+              {" "}Grounding Solutions
+            </span>
           </h2>
 
-          <p className="mt-6 text-gray-600 max-w-2xl mx-auto">
-            We manufacture high-quality electrical products designed to
-            meet industrial safety and performance standards.
+          <p className="mt-5 text-gray-600 leading-7">
+            Explore our range of electrical products and systems for
+            industrial power-system requirements.
           </p>
+
         </div>
 
-        <div className="mt-16">
+        {/* Cards */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-14">
+
           {products.map((product, index) => (
             <div
               key={index}
-              className="grid md:grid-cols-2 gap-10 items-center bg-white shadow-lg rounded-2xl p-8"
+              className="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:-translate-y-1 hover:shadow-xl transition duration-300"
             >
 
               {/* Image */}
-              <div className="h-[350px] bg-gray-200 rounded-xl flex justify-center items-center">
-                Product Image
+              <div className="h-56 bg-blue-50 flex items-center justify-center p-5">
+
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  className="max-h-full max-w-full object-contain"
+                />
+
               </div>
 
               {/* Content */}
-              <div>
-                <h3 className="text-3xl font-bold">
-                  {product.name}
+              <div className="p-6">
+
+                <p className="text-blue-600 text-sm font-semibold">
+                  {product.category}
+                </p>
+
+                <h3 className="text-xl font-bold text-gray-900 mt-3">
+                  {product.title}
                 </h3>
 
-                <p className="mt-6 text-gray-600 leading-8">
+                <p className="text-gray-600 leading-7 mt-4 text-sm">
                   {product.description}
                 </p>
 
-                <ul className="mt-8 space-y-3">
-                  <li>✔ High Quality Material</li>
-                  <li>✔ Custom Design Available</li>
-                  <li>✔ Industrial Grade Performance</li>
-                  <li>✔ Reliable & Durable</li>
-                </ul>
+                <a
+                  href="#contact"
+                  className="inline-block mt-6 text-blue-600 font-bold hover:text-blue-800"
+                >
+                  Enquire Now →
+                </a>
 
-                <button className="mt-8 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
-                  Learn More
-                </button>
               </div>
 
             </div>
           ))}
+
         </div>
 
       </div>
+
     </section>
   );
 };

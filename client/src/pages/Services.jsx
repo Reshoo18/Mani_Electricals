@@ -1,78 +1,93 @@
-import React from 'react'
+import React from "react";
 
 const services = [
   {
-    title: "Design",
+    title: "High Voltage Test",
     description:
-      "Custom Neutral Grounding Resistor solutions for industrial requirements.",
+      "High voltage testing services for electrical equipment and systems.",
   },
   {
-    title: "Manufacturing",
+    title: "Current Injection Test",
     description:
-      "High-quality manufacturing with reliable industrial standards.",
+      "Current injection testing as part of electrical testing activities.",
   },
   {
-    title: "Supply",
+    title: "Relay Test",
     description:
-      "Fast and reliable supply of Neutral Grounding Resistors across India.",
+      "Relay testing for electrical protection systems.",
   },
   {
-    title: "Installation",
+    title: "Circuit Breaker & Transformer Testing",
     description:
-      "Professional installation by experienced engineers.",
+      "Testing of circuit breakers and transformers.",
   },
   {
-    title: "Testing & Commissioning",
+    title: "Transformer Filtration",
     description:
-      "Complete testing and commissioning before project handover.",
+      "\"ON LINE\" filtration of transformer by vehicle mounted high vacuum filtration plant.",
   },
   {
-    title: "Transformer Repair",
+    title: "Transformer Overhauling & Acidity Test",
     description:
-      "Repair and maintenance services for industrial transformers.",
+      "Periodical overhauling of transformer along with acidity testing.",
   },
 ];
 
 const Services = () => {
   return (
-    <section className="py-24 bg-gray-50">
+    <section id="services" className="py-24 bg-white">
+
       <div className="max-w-7xl mx-auto px-6">
 
-        <div className="text-center">
-          <p className="text-blue-600 font-semibold uppercase">
+        {/* Heading */}
+        <div className="text-center max-w-3xl mx-auto">
+
+          <p className="text-blue-600 font-bold uppercase tracking-wider">
             Our Services
           </p>
 
-          <h2 className="text-5xl font-bold mt-4">
-            Complete Industrial Electrical Solutions
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mt-4">
+            Testing & Transformer
+            <span className="text-blue-600">
+              {" "}Services
+            </span>
           </h2>
 
-          <p className="text-gray-600 mt-6 max-w-2xl mx-auto">
-            We provide complete engineering solutions from design to
-            commissioning with quality and reliability.
+          <p className="mt-5 text-gray-600 leading-7">
+            Mani Electricals & Electronics undertakes electrical testing,
+            transformer testing and transformer maintenance related activities.
           </p>
+
         </div>
 
-        <div className="grid grid-cols-3 gap-8 mt-16">
+        {/* Cards */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
 
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl shadow-md p-8 hover:shadow-xl transition duration-300"
+              className="bg-gray-50 border border-gray-200 rounded-2xl p-7 hover:shadow-xl hover:-translate-y-1 transition duration-300"
             >
-              <h3 className="text-2xl font-bold mb-4">
+
+              <div className="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-lg">
+                {String(index + 1).padStart(2, "0")}
+              </div>
+
+              <h3 className="text-xl font-bold text-gray-900 mt-6">
                 {service.title}
               </h3>
 
-              <p className="text-gray-600 leading-7">
+              <p className="text-gray-600 leading-7 mt-4">
                 {service.description}
               </p>
+
             </div>
           ))}
 
         </div>
 
       </div>
+
     </section>
   );
 };
