@@ -10,7 +10,6 @@ const Navbar = () => {
           <h1 className="text-xl md:text-2xl font-bold text-blue-900">
             MANI ELECTRICALS
           </h1>
-
           <p className="text-xs md:text-sm text-gray-500 tracking-wide">
             & ELECTRONICS
           </p>
@@ -18,27 +17,45 @@ const Navbar = () => {
 
         <div className="hidden md:flex items-center gap-8">
 
-          <Link to="/" className="text-gray-700 font-medium hover:text-blue-600">
+          <Link
+            to="/"
+            className="text-gray-700 font-medium hover:text-blue-600 transition"
+          >
             Home
           </Link>
 
-          <Link to="/about" className="text-gray-700 font-medium hover:text-blue-600">
+          <Link
+            to="/about"
+            className="text-gray-700 font-medium hover:text-blue-600 transition"
+          >
             About Us
           </Link>
 
-          <Link to="/products" className="text-gray-700 font-medium hover:text-blue-600">
+          <Link
+            to="/products"
+            className="text-gray-700 font-medium hover:text-blue-600 transition"
+          >
             Products
           </Link>
 
-          <Link to="/services" className="text-gray-700 font-medium hover:text-blue-600">
+          <Link
+            to="/services"
+            className="text-gray-700 font-medium hover:text-blue-600 transition"
+          >
             Services
           </Link>
 
-          <Link to="/why-choose-us" className="text-gray-700 font-medium hover:text-blue-600">
+          <Link
+            to="/why-choose-us"
+            className="text-gray-700 font-medium hover:text-blue-600 transition"
+          >
             Why Choose Us
           </Link>
 
-          <Link to="/contact" className="text-gray-700 font-medium hover:text-blue-600">
+          <Link
+            to="/contact"
+            className="text-gray-700 font-medium hover:text-blue-600 transition"
+          >
             Contact
           </Link>
 
@@ -46,7 +63,7 @@ const Navbar = () => {
 
         <Link
           to="/contact"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg font-semibold"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg font-semibold transition"
         >
           Request a Quote
         </Link>
