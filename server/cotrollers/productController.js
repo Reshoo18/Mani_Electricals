@@ -45,35 +45,81 @@ export const getProduct=async(req,res)=>{
     }
 }
 
-export const updateProduct=async(req,res)=>{
+export const updateProduct = async (req, res) => {
     try {
-        const {name,description,category,details}=req.body;
-        const product=await Product.findByIdAndUpdate(req.params.id,
-           {name,description,category,details },{new:true}
-        )
-        if(!product){
-          return  res.status(404).json({message:"product is not found"})
+        const { name, description, category, details } = req.body
+        const product = await Product.findById(req.params.id)
+
+        if (!product) {
+            return res.status(404).json({ message: "product is not found" })
         }
-        res.status(200).json({message:"user updated successfully",product})
+
+        let image = product.image
+        let imagePublicId = product.imagePublicId
+
+        if (req.file) {
+            const base64 = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`
+
+            const result = await cloudinary.uploader.upload(base64, {
+                resource_type: "image"
+            })
+
+            await cloudinary.uploader.destroy(product.imagePublicId)
+
+            image = result.secure_url
+            imagePublicId = result.public_id
+        }
+
+        const updatedProduct = await Product.findByIdAndUpdate(
+            req.params.id,
+            {
+                name,
+                description,
+                category,
+                details,
+                image,
+                imagePublicId
+            },
+            { new: true }
+        )
+
+        res.status(200).json({
+            message: "product updated successfully",
+            product: updatedProduct
+        })
+
     } catch (error) {
-        res.status(500).json({message:`error in updating product ${error}`})
-        
+        res.status(500).json({
+            message: `error in updating product ${error.message}`
+        })
     }
 }
 
 
-export const deleteProduct=async(req,res)=>{
+export const deleteProduct = async (req, res) => {
     try {
-        const id=req.params.id
-        const product=await Product.findByIdAndDelete(id)
-        
-        if(!product){
-            return res.status(404).json({message:"product is not available"})
+        const id = req.params.id
+
+        const product = await Product.findById(id)
+
+        if (!product) {
+            return res.status(404).json({
+                message: "product is not available"
+            })
         }
 
-        res.status(200).json({message:"product is deleted",product})
+        await cloudinary.uploader.destroy(product.imagePublicId)
+
+        await Product.findByIdAndDelete(id)
+
+        res.status(200).json({
+            message: "product is deleted successfully",
+            product
+        })
+
     } catch (error) {
-        res.status(500).json({message:`the error while deleting the product`})
-        
+        res.status(500).json({
+            message: `error while deleting the product ${error.message}`
+        })
     }
 }

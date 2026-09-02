@@ -1,54 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-import ngrImage from "../assets/ngr-433v.png";
-import ngrInternal from "../assets/ngr-433v-internal.png";
-import ngr11kv from "../assets/ngr-11kv.png";
-import ngrComponents from "../assets/ngr-components.png";
-
-const products = [
-  {
-    title: "Restricted Neutral Grounding System",
-    category: "Featured Solution",
-    description:
-      "Restricted Neutral Grounding System for 433V / 550V and 3.3KV / 6.6KV / 11KV power supply systems.",
-    image: ngrImage,
-  },
-  {
-    title: "Resin Cast Current Transformer",
-    category: "Electrical Equipment",
-    description:
-      "Resin cast current transformer equipment included in the company's electrical solution range.",
-    image: ngrComponents,
-  },
-  {
-    title: "Solid State Earth Leakage Relay",
-    category: "Protection",
-    description:
-      "Solid state earth leakage relay solution for electrical protection and monitoring applications.",
-    image: ngrInternal,
-  },
-  {
-    title: "Transformer & Circuit Breaker Spares",
-    category: "Spare Parts",
-    description:
-      "Spare parts for circuit breakers and transformers.",
-    image: ngr11kv,
-  },
-];
+import productApi from "../utils/axios";
 
 const Product = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const data = await productApi();
+        setProducts(data);
+      } catch (error) {
+        console.log("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <section
       id="products"
       className="relative overflow-hidden bg-[#030817] py-16 sm:py-20 lg:py-24"
     >
-      {/* Background Glow */}
-      <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-blue-600/20 blur-3xl" />
-      <div className="absolute top-1/3 -right-40 h-96 w-96 rounded-full bg-indigo-600/20 blur-3xl" />
+      <div className="absolute -left-40 -top-40 h-96 w-96 rounded-full bg-blue-600/20 blur-3xl" />
+
+      <div className="absolute -right-40 top-1/3 h-96 w-96 rounded-full bg-indigo-600/20 blur-3xl" />
+
       <div className="absolute bottom-0 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-cyan-500/10 blur-3xl" />
 
-      {/* Grid Background */}
       <div
         className="absolute inset-0 opacity-20"
         style={{
@@ -60,7 +40,6 @@ const Product = () => {
 
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6">
 
-        {/* Heading */}
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
 
           <div>
@@ -74,6 +53,7 @@ const Product = () => {
 
             <h1 className="max-w-4xl text-4xl font-black leading-tight text-white sm:text-5xl md:text-6xl">
               Electrical Products
+
               <span className="block bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent">
                 Built for Industrial Applications
               </span>
@@ -94,23 +74,21 @@ const Product = () => {
               Request a Quote →
             </Link>
           </div>
+
         </div>
 
-        {/* Product Cards */}
-        <div className="mt-12 grid gap-7 md:grid-cols-2">
+        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 
           {products.map((product, index) => (
             <div
-              key={index}
-              className="group overflow-hidden rounded-[24px] border border-white/10 bg-white shadow-2xl shadow-black/20 transition-all duration-500 hover:-translate-y-2 hover:shadow-blue-900/30"
+              key={product._id}
+              className="group mx-auto w-full max-w-[420px] overflow-hidden rounded-[20px] border border-white/10 bg-white shadow-2xl shadow-black/20 transition-all duration-500 hover:-translate-y-2"
             >
 
-              {/* Image Section */}
-              <div className="relative flex h-60 items-center justify-center overflow-hidden bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100 p-5 sm:h-64">
+              <div className="relative flex h-40 items-center justify-center overflow-hidden bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100 p-3">
 
-                {/* Number */}
                 <div
-                  className={`absolute left-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-xl font-black shadow-lg ${
+                  className={`absolute left-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-lg text-xs font-black shadow-lg ${
                     index === 0
                       ? "bg-yellow-400 text-[#06112f]"
                       : "bg-blue-600 text-white"
@@ -119,72 +97,72 @@ const Product = () => {
                   {String(index + 1).padStart(2, "0")}
                 </div>
 
-                {/* Image Glow */}
-                <div className="absolute h-40 w-40 rounded-full bg-blue-400/20 blur-3xl transition duration-500 group-hover:scale-150" />
+                <div className="absolute h-28 w-28 rounded-full bg-blue-400/20 blur-3xl transition duration-500 group-hover:scale-150" />
 
                 <img
                   src={product.image}
-                  alt={product.title}
-                  className="relative z-10 max-h-full max-w-full object-contain drop-shadow-xl transition duration-500 group-hover:scale-105"
+                  alt={product.name}
+                  className="relative z-10 max-h-full max-w-[78%] object-contain drop-shadow-xl transition duration-500 group-hover:scale-105"
                 />
 
-                {/* Category Badge */}
-                <div className="absolute bottom-4 right-4 rounded-full bg-[#07143d] px-4 py-2 text-xs font-bold text-white shadow-lg">
+                <div className="absolute bottom-3 right-3 rounded-full bg-[#07143d] px-3 py-1 text-[10px] font-bold text-white shadow-lg">
                   {product.category}
                 </div>
+
               </div>
 
-              {/* Content */}
-              <div className="p-6 sm:p-7">
+              <div className="p-4">
 
-                <p className="text-xs font-black uppercase tracking-[0.15em] text-blue-600">
+                <p className="text-[10px] font-black uppercase tracking-[0.15em] text-blue-600">
                   {product.category}
                 </p>
 
-                <h2 className="mt-3 text-2xl font-black leading-tight text-[#071126]">
-                  {product.title}
+                <h2 className="mt-1.5 text-lg font-black leading-tight text-[#071126]">
+                  {product.name}
                 </h2>
 
-                <p className="mt-4 text-sm leading-7 text-slate-600 sm:text-base">
+                <p className="mt-2 text-xs leading-5 text-slate-600">
                   {product.description}
                 </p>
 
-                <div className="my-6 h-px bg-slate-200" />
+                <p className="mt-1.5 text-xs leading-5 text-slate-500">
+                  {product.details}
+                </p>
 
-                {/* Buttons */}
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="my-3 h-px bg-slate-200" />
+
+                <div className="flex items-center justify-between gap-3">
 
                   <Link
-                    to="/contact"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-bold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/25 sm:w-auto"
+                    to={`/products/${product._id}`}
+                    className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-xs font-bold text-white transition duration-300 hover:bg-blue-700"
                   >
-                    Enquire Now
+                    View Details
                     <span>→</span>
                   </Link>
 
                   <Link
                     to="/contact"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 border-[#07143d] px-5 py-3 font-bold text-[#07143d] transition duration-300 hover:-translate-y-0.5 hover:bg-[#07143d] hover:text-white sm:w-auto"
+                    className="inline-flex items-center justify-center rounded-lg border-2 border-[#07143d] px-4 py-2 text-xs font-bold text-[#07143d] transition duration-300 hover:bg-[#07143d] hover:text-white"
                   >
                     Request a Quote
                   </Link>
 
                 </div>
 
-                {/* Product Number */}
-                <div className="mt-5 flex justify-end">
-                  <span className="text-4xl font-black text-slate-200">
+                <div className="mt-2 flex justify-end">
+                  <span className="text-2xl font-black text-slate-200">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
 
               </div>
+
             </div>
           ))}
 
         </div>
 
-        {/* Bottom CTA */}
         <div className="mt-12 overflow-hidden rounded-3xl border border-blue-400/20 bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-600 p-7 shadow-2xl shadow-blue-950/40 sm:p-10">
 
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
@@ -213,6 +191,7 @@ const Product = () => {
             </Link>
 
           </div>
+
         </div>
 
       </div>

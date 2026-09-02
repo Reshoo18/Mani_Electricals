@@ -9,6 +9,13 @@ import Product from "./pages/Product";
 import Services from "./pages/Services";
 import WhyChoose from "./pages/WhyChoose";
 import Contact from "./pages/Contact";
+import Login from "./pages/login";
+import Admin from "./pages/admin";
+import EditProduct from "./pages/editProduct";
+import AddProduct from "./pages/addProduct";
+import ChangePassword from "./pages/changePassword";
+import ProductDetails from "./pages/productDetails";
+import ScrollToTop from "./pages/scrollOnTop";
 
 const App = () => {
   return (
@@ -16,6 +23,7 @@ const App = () => {
 
       {/* Navbar har page par rahega */}
       <Navbar />
+      <ScrollToTop />
 
       <Routes>
 
@@ -31,6 +39,23 @@ const App = () => {
 
         <Route path="/contact" element={<Contact />} />
 
+        <Route path="/login" element={<Login />} />
+        <Route path="/admin" element={<Admin/>} />
+
+        <Route path="/admin/products/add" element={<AddProduct />} />
+
+<Route
+    path="/admin/products/edit/:id"
+    element={<EditProduct/>}
+/>
+
+<Route
+    path="/admin/change-password"
+    element={<ChangePassword />}
+/>
+
+<Route path="/products/:id" element={<ProductDetails />} />
+  
       </Routes>
 
     </BrowserRouter>

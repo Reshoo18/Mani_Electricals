@@ -1,72 +1,168 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  return (
-    <nav className="sticky top-0 z-50 bg-white border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-6 h-[84px] flex items-center justify-between">
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    !!localStorage.getItem("token")
+  );
 
-        <Link to="/" className="leading-tight">
-          <h1 className="text-xl md:text-2xl font-bold text-blue-900">
-            MANI ELECTRICALS
-          </h1>
-          <p className="text-xs md:text-sm text-gray-500 tracking-wide">
-            & ELECTRONICS
-          </p>
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsLoggedIn(!!localStorage.getItem("token"));
+  }, [location.pathname]);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [location.pathname]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    navigate("/");
+  };
+
+  return (
+    <nav className="sticky top-0 z-50 border-b border-blue-500/20 bg-[#020817]/95 shadow-xl shadow-black/20 backdrop-blur-md">
+      <div className="mx-auto flex h-[86px] max-w-7xl items-center justify-between px-5 sm:px-6">
+
+        <Link to="/" className="shrink-0 leading-none">
+          <div className="flex items-center gap-2">
+            <span className="text-xl font-black tracking-wide text-white sm:text-2xl">
+              MANI
+            </span>
+
+            <span className="text-xl font-black tracking-wide text-blue-400 sm:text-2xl">
+              ELECTRICALS
+            </span>
+          </div>
+
+          <div className="mt-2 flex items-center gap-2">
+            <span className="h-[2px] w-7 bg-yellow-400" />
+
+            <span className="text-[10px] font-bold tracking-[0.25em] text-slate-300 sm:text-xs">
+              & ELECTRONICS
+            </span>
+          </div>
         </Link>
 
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden items-center gap-6 lg:flex">
 
           <Link
             to="/"
-            className="text-gray-700 font-medium hover:text-blue-600 transition"
+            className="font-semibold text-slate-200 transition hover:text-blue-400"
           >
             Home
           </Link>
 
           <Link
             to="/about"
-            className="text-gray-700 font-medium hover:text-blue-600 transition"
+            className="font-semibold text-slate-200 transition hover:text-blue-400"
           >
             About Us
           </Link>
 
           <Link
             to="/products"
-            className="text-gray-700 font-medium hover:text-blue-600 transition"
+            className="font-semibold text-slate-200 transition hover:text-blue-400"
           >
             Products
           </Link>
 
           <Link
             to="/services"
-            className="text-gray-700 font-medium hover:text-blue-600 transition"
+            className="font-semibold text-slate-200 transition hover:text-blue-400"
           >
             Services
           </Link>
 
           <Link
             to="/why-choose-us"
-            className="text-gray-700 font-medium hover:text-blue-600 transition"
+            className="font-semibold text-slate-200 transition hover:text-blue-400"
           >
             Why Choose Us
           </Link>
 
           <Link
             to="/contact"
-            className="text-gray-700 font-medium hover:text-blue-600 transition"
+            className="font-semibold text-slate-200 transition hover:text-blue-400"
           >
             Contact
           </Link>
 
+          {isLoggedIn ? (
+            <>
+              <Link
+                to="/admin"
+                className="rounded-lg border border-blue-500/50 bg-blue-500/10 px-4 py-2.5 font-bold text-blue-300 transition hover:bg-blue-500/20"
+              >
+                Dashboard
+              </Link>
+
+              <button
+                onClick={handleLogout}
+                className="rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-2.5 font-bold text-red-300 transition hover:bg-red-500/20"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <Link
+              to="/login"
+              className="rounded-lg border border-blue-500/50 bg-blue-500/10 px-4 py-2.5 font-bold text-blue-300 transition hover:bg-blue-500/20"
+            >
+              Admin use
+            </Link>
+          )}
+
+          <Link
+            to="/contact"
+            className="rounded-xl bg-yellow-400 px-6 py-3 font-black text-[#06112f] shadow-lg shadow-yellow-400/20 transition hover:-translate-y-0.5 hover:bg-yellow-300"
+          >
+            Request a Quote
+          </Link>
+
         </div>
 
-        <Link
-          to="/contact"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg font-semibold transition"
-        >
-          Request a Quote
-        </Link>
+        <div className="flex items-center gap-2 lg:hidden">
+
+          {isLoggedIn ? (
+            <>
+              <Link
+                to="/admin"
+                className="rounded-lg border border-blue-500/50 px-3 py-2 text-sm font-bold text-blue-300"
+              >
+                Dashboard
+              </Link>
+
+              <button
+                onClick={handleLogout}
+                className="rounded-lg border border-red-500/40 px-3 py-2 text-sm font-bold text-red-300"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <Link
+              to="/login"
+              className="rounded-lg border border-blue-500/50 px-3 py-2 text-sm font-bold text-blue-300"
+            >
+             login
+            </Link>
+          )}
+
+          <Link
+            to="/contact"
+            className="rounded-lg bg-yellow-400 px-3 py-2 text-sm font-black text-[#06112f]"
+          >
+            Quote
+          </Link>
+
+        </div>
 
       </div>
     </nav>
