@@ -16,6 +16,7 @@ import AddProduct from "./pages/addProduct";
 import ChangePassword from "./pages/changePassword";
 import ProductDetails from "./pages/productDetails";
 import ScrollToTop from "./pages/scrollOnTop";
+import ForgotPassword from "./pages/forgotPassword";
 
 const App = () => {
   return (
@@ -40,6 +41,10 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
 
         <Route path="/login" element={<Login />} />
+                 <Route
+                    path="/forgot-password"
+                    element={<ForgotPassword />}
+                />
         <Route path="/admin" element={<Admin/>} />
 
         <Route path="/admin/products/add" element={<AddProduct />} />

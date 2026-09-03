@@ -1,16 +1,20 @@
 import React, { useState } from "react"
 import axios from "axios"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
 
     const handleLogin = async (e) => {
         e.preventDefault()
+
+        setError("")
+        setLoading(true)
 
         try {
             const response = await axios.post(
@@ -22,13 +26,13 @@ const Login = () => {
             )
 
             localStorage.setItem("token", response.data.token)
-
             navigate("/admin")
-
         } catch (error) {
             setError(
                 error.response?.data?.message || "Login failed"
             )
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -39,7 +43,6 @@ const Login = () => {
                 onSubmit={handleLogin}
                 className="w-full max-w-md rounded-2xl bg-white p-8 shadow-2xl"
             >
-
                 <h1 className="mb-2 text-3xl font-black text-[#071126]">
                     Admin Login
                 </h1>
@@ -49,9 +52,9 @@ const Login = () => {
                 </p>
 
                 {error && (
-                    <p className="mb-4 rounded-lg bg-red-100 p-3 text-sm text-red-600">
+                    <div className="mb-5 rounded-lg bg-red-100 p-3 text-sm text-red-600">
                         {error}
-                    </p>
+                    </div>
                 )}
 
                 <div className="mb-5">
@@ -69,7 +72,7 @@ const Login = () => {
                     />
                 </div>
 
-                <div className="mb-6">
+                <div className="mb-2">
                     <label className="mb-2 block font-semibold text-slate-700">
                         Password
                     </label>
@@ -84,15 +87,23 @@ const Login = () => {
                     />
                 </div>
 
+                <div className="mb-6 text-right">
+                    <Link
+                        to="/forgot-password"
+                        className="text-sm font-semibold text-blue-600 hover:text-blue-700"
+                    >
+                        Forgot Password?
+                    </Link>
+                </div>
+
                 <button
                     type="submit"
-                    className="w-full rounded-lg bg-blue-600 px-5 py-3 font-bold text-white transition hover:bg-blue-700"
+                    disabled={loading}
+                    className="w-full rounded-lg bg-blue-600 px-5 py-3 font-bold text-white transition hover:bg-blue-700 disabled:opacity-60"
                 >
-                    Login
+                    {loading ? "Logging in..." : "Login"}
                 </button>
-
             </form>
-
         </div>
     )
 }

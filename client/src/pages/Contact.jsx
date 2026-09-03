@@ -1,288 +1,380 @@
-import React from "react";
+import React, { useState } from "react"
+import axios from "axios"
 import {
-  FaPhoneAlt,
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaArrowRight,
-} from "react-icons/fa";
-
-const contactInfo = [
-  {
-    icon: FaPhoneAlt,
-    title: "Phone",
-    subtitle: "Speak with our team",
-    content: (
-      <>
-        <a
-          href="tel:+918235634151"
-          className="block hover:text-yellow-400 transition-colors duration-300 break-all"
-        >
-          +91 8235634151
-        </a>
-
-        <a
-          href="tel:+919431331490"
-          className="block mt-1 hover:text-yellow-400 transition-colors duration-300 break-all"
-        >
-          +91 9431331490
-        </a>
-      </>
-    ),
-  },
-  {
-    icon: FaEnvelope,
-    title: "Email",
-    subtitle: "Send us your requirement",
-    content: (
-      <>
-        <a
-          href="mailto:mee.ranchi25@gmail.com"
-          className="block hover:text-yellow-400 transition-colors duration-300 break-all"
-        >
-          mee.ranchi25@gmail.com
-        </a>
-
-        <a
-          href="mailto:mee.ranchi25@yahoo.com"
-          className="block mt-1 hover:text-yellow-400 transition-colors duration-300 break-all"
-        >
-          mee.ranchi25@yahoo.com
-        </a>
-      </>
-    ),
-  },
-  {
-    icon: FaMapMarkerAlt,
-    title: "Address",
-    subtitle: "Our location",
-    content: (
-      <p className="leading-7">
-        Plot No. 539, Sunder Nagar, Road No. 2,
-        Devidarsan Rd, Getlatu,
-        Ranchi, Jharkhand - 835 217
-      </p>
-    ),
-  },
-];
+    FaPhoneAlt,
+    FaEnvelope,
+    FaMapMarkerAlt,
+    FaArrowRight,
+} from "react-icons/fa"
 
 const Contact = () => {
-  return (
-    <section
-      id="contact"
-      className="relative overflow-hidden py-20 sm:py-24 lg:py-28 bg-gradient-to-br from-blue-950 via-blue-900 to-indigo-950 text-white"
-    >
-      {/* Background Effects */}
-      <div className="absolute -top-40 -left-40 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl" />
+    const [formData, setFormData] = useState({
+        name: "",
+        company: "",
+        email: "",
+        phone: "",
+        requirement: "",
+    })
 
-      <div className="absolute -bottom-40 -right-40 w-[450px] h-[450px] bg-indigo-500/20 rounded-full blur-3xl" />
+    const [loading, setLoading] = useState(false)
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    const handleChange = (e) => {
+        const { name, value } = e.target
 
-        {/* Heading */}
-        <div className="text-center max-w-3xl mx-auto">
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }))
+    }
 
-          <div className="flex items-center justify-center gap-3 mb-5">
-            <span className="w-8 sm:w-12 h-[2px] bg-yellow-400" />
+    const handleSubmit = async (e) => {
+        e.preventDefault()
 
-            <p className="text-yellow-400 font-bold uppercase tracking-[0.18em] text-xs sm:text-sm">
-              Contact Us
-            </p>
+        try {
+            setLoading(true)
 
-            <span className="w-8 sm:w-12 h-[2px] bg-yellow-400" />
-          </div>
+            const response = await axios.post(
+                "http://localhost:8000/enquiry",
+                formData
+            )
 
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
-            Let's Build
-            <span className="text-yellow-400"> Better </span>
-            Solutions
-          </h2>
+            alert(response.data.message)
 
-          <p className="mt-5 sm:mt-6 text-blue-100 text-base sm:text-lg leading-7 sm:leading-8">
-            Contact Mani Electricals & Electronics for product enquiries,
-            electrical testing requirements, transformer services and
-            quotations.
-          </p>
+            setFormData({
+                name: "",
+                company: "",
+                email: "",
+                phone: "",
+                requirement: "",
+            })
+        } catch (error) {
+            console.log(error)
 
-        </div>
+            alert(
+                error.response?.data?.message ||
+                "Failed to send enquiry"
+            )
+        } finally {
+            setLoading(false)
+        }
+    }
 
-        {/* Main Content */}
-        <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-12 mt-12 sm:mt-16">
+    const contactInfo = [
+        {
+            icon: FaPhoneAlt,
+            title: "Phone",
+            subtitle: "Speak with our team",
+            content: (
+                <>
+                    <a
+                        href="tel:+918235634151"
+                        className="block break-all transition-colors duration-300 hover:text-yellow-400"
+                    >
+                        +91 8235634151
+                    </a>
 
-          {/* Left Side */}
-          <div className="space-y-5">
+                    <a
+                        href="tel:+919431331490"
+                        className="mt-1 block break-all transition-colors duration-300 hover:text-yellow-400"
+                    >
+                        +91 9431331490
+                    </a>
+                </>
+            ),
+        },
+        {
+            icon: FaEnvelope,
+            title: "Email",
+            subtitle: "Send us your requirement",
+            content: (
+                <>
+                    <a
+                        href="mailto:mee.ranchi25@gmail.com"
+                        className="block break-all transition-colors duration-300 hover:text-yellow-400"
+                    >
+                        mee.ranchi25@gmail.com
+                    </a>
 
-            {contactInfo.map((item, index) => {
-              const Icon = item.icon;
+                    <a
+                        href="mailto:mee.ranchi25@yahoo.com"
+                        className="mt-1 block break-all transition-colors duration-300 hover:text-yellow-400"
+                    >
+                        mee.ranchi25@yahoo.com
+                    </a>
+                </>
+            ),
+        },
+        {
+            icon: FaMapMarkerAlt,
+            title: "Address",
+            subtitle: "Our location",
+            content: (
+                <p className="text-sm leading-7 sm:text-base">
+                    Plot No. 539, Sunder Nagar, Road No. 2,
+                    Devidarsan Rd, Getlatu, Ranchi,
+                    Jharkhand - 835 217
+                </p>
+            ),
+        },
+    ]
 
-              return (
-                <div
-                  key={index}
-                  className="group rounded-2xl sm:rounded-3xl border border-white/10 bg-white/[0.07] backdrop-blur-md p-6 sm:p-7 transition-all duration-500 hover:-translate-y-1 hover:bg-white/[0.11] hover:border-yellow-400/30"
-                >
-                  <div className="flex items-start gap-4 sm:gap-5">
+    return (
+        <section
+            id="contact"
+            className="relative overflow-hidden bg-gradient-to-br from-blue-950 via-blue-900 to-indigo-950 py-16 text-white sm:py-20 lg:py-28"
+        >
+            <div className="absolute -left-40 -top-40 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl sm:h-96 sm:w-96" />
 
-                    {/* Icon */}
-                    <div className="shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-yellow-400 text-blue-950 flex items-center justify-center shadow-lg shadow-yellow-500/20 group-hover:scale-110 transition-transform duration-300">
-                      <Icon className="text-lg sm:text-xl" />
+            <div className="absolute -bottom-40 -right-40 h-80 w-80 rounded-full bg-indigo-500/20 blur-3xl sm:h-[450px] sm:w-[450px]" />
+
+            <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+                {/* Heading */}
+
+                <div className="mx-auto max-w-3xl text-center">
+
+                    <div className="mb-4 flex items-center justify-center gap-3 sm:mb-5">
+
+                        <span className="h-[2px] w-7 bg-yellow-400 sm:w-12" />
+
+                        <p className="text-xs font-bold uppercase tracking-[0.16em] text-yellow-400 sm:text-sm sm:tracking-[0.18em]">
+                            Contact Us
+                        </p>
+
+                        <span className="h-[2px] w-7 bg-yellow-400 sm:w-12" />
+
                     </div>
 
-                    {/* Content */}
-                    <div className="min-w-0 flex-1">
+                    <h2 className="text-3xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
+                        Let's Build
+                        <span className="text-yellow-400"> Better </span>
+                        Solutions
+                    </h2>
 
-                      <p className="text-yellow-400 text-xs font-bold uppercase tracking-wider">
-                        {item.subtitle}
-                      </p>
+                    <p className="mt-4 text-sm leading-7 text-blue-100 sm:mt-6 sm:text-lg sm:leading-8">
+                        Contact Mani Electricals & Electronics for product
+                        enquiries, electrical testing requirements,
+                        transformer services and quotations.
+                    </p>
 
-                      <h3 className="text-xl sm:text-2xl font-bold mt-1">
-                        {item.title}
-                      </h3>
+                </div>
 
-                      <div className="text-blue-100 text-sm sm:text-base mt-3">
-                        {item.content}
-                      </div>
+                {/* Main Content */}
+
+                <div className="mt-10 grid gap-8 lg:mt-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
+
+                    {/* Left Side */}
+
+                    <div className="space-y-4 sm:space-y-5">
+
+                        {contactInfo.map((item, index) => {
+
+                            const Icon = item.icon
+
+                            return (
+                                <div
+                                    key={index}
+                                    className="group rounded-2xl border border-white/10 bg-white/[0.07] p-5 backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-yellow-400/30 hover:bg-white/[0.11] sm:rounded-3xl sm:p-7"
+                                >
+
+                                    <div className="flex items-start gap-4 sm:gap-5">
+
+                                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-yellow-400 text-blue-950 shadow-lg shadow-yellow-500/20 transition-transform duration-300 group-hover:scale-110 sm:h-14 sm:w-14 sm:rounded-2xl">
+                                            <Icon className="text-base sm:text-xl" />
+                                        </div>
+
+                                        <div className="min-w-0 flex-1">
+
+                                            <p className="text-[10px] font-bold uppercase tracking-wider text-yellow-400 sm:text-xs">
+                                                {item.subtitle}
+                                            </p>
+
+                                            <h3 className="mt-1 text-xl font-bold sm:text-2xl">
+                                                {item.title}
+                                            </h3>
+
+                                            <div className="mt-2 text-sm text-blue-100 sm:mt-3 sm:text-base">
+                                                {item.content}
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            )
+                        })}
+
+                        {/* Highlight */}
+
+                        <div className="rounded-2xl border border-white/10 bg-gradient-to-r from-blue-600 to-indigo-600 p-5 sm:rounded-3xl sm:p-7">
+
+                            <p className="text-[10px] font-bold uppercase tracking-wider text-yellow-400 sm:text-xs">
+                                Electrical Engineering
+                            </p>
+
+                            <h3 className="mt-2 text-xl font-bold sm:text-2xl">
+                                Reliable solutions for industrial requirements.
+                            </h3>
+
+                            <p className="mt-3 text-sm leading-7 text-blue-100 sm:text-base">
+                                From Restricted Neutral Grounding Systems
+                                to testing and transformer-related services,
+                                connect with us for your electrical
+                                requirements.
+                            </p>
+
+                        </div>
 
                     </div>
 
-                  </div>
+                    {/* Right Form */}
+
+                    <div className="rounded-2xl bg-white p-5 text-gray-900 shadow-2xl sm:rounded-3xl sm:p-8 lg:p-10">
+
+                        <div className="mb-6 sm:mb-8">
+
+                            <p className="text-xs font-bold uppercase tracking-wider text-blue-600 sm:text-sm">
+                                Get In Touch
+                            </p>
+
+                            <h3 className="mt-2 text-2xl font-extrabold sm:text-4xl">
+                                Send Us an Enquiry
+                            </h3>
+
+                            <p className="mt-3 text-sm leading-7 text-gray-500 sm:text-base">
+                                Tell us about your requirement and our team
+                                can get back to you with the relevant
+                                information.
+                            </p>
+
+                        </div>
+
+                        <form
+                            onSubmit={handleSubmit}
+                            className="space-y-4 sm:space-y-5"
+                        >
+
+                            {/* Name + Company */}
+
+                            <div className="grid gap-4 sm:grid-cols-2">
+
+                                <div>
+                                    <label className="mb-2 block text-sm font-semibold">
+                                        Full Name
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                        placeholder="Your name"
+                                        required
+                                        className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 sm:text-base"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="mb-2 block text-sm font-semibold">
+                                        Company Name
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        name="company"
+                                        value={formData.company}
+                                        onChange={handleChange}
+                                        placeholder="Company name"
+                                        className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 sm:text-base"
+                                    />
+                                </div>
+
+                            </div>
+
+                            {/* Email + Phone */}
+
+                            <div className="grid gap-4 sm:grid-cols-2">
+
+                                <div>
+                                    <label className="mb-2 block text-sm font-semibold">
+                                        Email Address
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        placeholder="you@example.com"
+                                        required
+                                        className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 sm:text-base"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="mb-2 block text-sm font-semibold">
+                                        Phone Number
+                                    </label>
+
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        value={formData.phone}
+                                        onChange={handleChange}
+                                        placeholder="+91"
+                                        required
+                                        className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 sm:text-base"
+                                    />
+                                </div>
+
+                            </div>
+
+                            {/* Requirement */}
+
+                            <div>
+
+                                <label className="mb-2 block text-sm font-semibold">
+                                    Your Requirement
+                                </label>
+
+                                <textarea
+                                    name="requirement"
+                                    value={formData.requirement}
+                                    onChange={handleChange}
+                                    rows="5"
+                                    placeholder="Tell us about your electrical requirement..."
+                                    required
+                                    className="w-full resize-none rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 sm:text-base"
+                                />
+
+                            </div>
+
+                            {/* Button */}
+
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="group flex w-full items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-5 py-3.5 text-base font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:from-blue-700 hover:to-indigo-700 hover:shadow-xl hover:shadow-blue-500/20 disabled:cursor-not-allowed disabled:opacity-60 sm:py-4 sm:text-lg"
+                            >
+                                <span>
+                                    {loading ? "Sending..." : "Send Enquiry"}
+                                </span>
+
+                                {!loading && (
+                                    <FaArrowRight className="text-sm transition-transform duration-300 group-hover:translate-x-1" />
+                                )}
+                            </button>
+
+                        </form>
+
+                    </div>
+
                 </div>
-              );
-            })}
-
-            {/* Small Highlight */}
-            <div className="rounded-2xl sm:rounded-3xl bg-gradient-to-r from-blue-600 to-indigo-600 p-6 sm:p-7 border border-white/10">
-
-              <p className="text-yellow-400 text-xs font-bold uppercase tracking-wider">
-                Electrical Engineering
-              </p>
-
-              <h3 className="text-xl sm:text-2xl font-bold mt-2">
-                Reliable solutions for industrial requirements.
-              </h3>
-
-              <p className="text-blue-100 text-sm sm:text-base leading-7 mt-3">
-                From Restricted Neutral Grounding Systems to testing and
-                transformer-related services, connect with us for your
-                electrical requirements.
-              </p>
 
             </div>
+        </section>
+    )
+}
 
-          </div>
-
-          {/* Right Form */}
-          <div className="rounded-2xl sm:rounded-3xl bg-white text-gray-900 p-5 sm:p-8 lg:p-10 shadow-2xl">
-
-            <div className="mb-7 sm:mb-8">
-
-              <p className="text-blue-600 text-sm font-bold uppercase tracking-wider">
-                Get In Touch
-              </p>
-
-              <h3 className="text-3xl sm:text-4xl font-extrabold mt-2">
-                Send Us an Enquiry
-              </h3>
-
-              <p className="text-gray-500 mt-3 leading-7 text-sm sm:text-base">
-                Tell us about your requirement and our team can get back
-                to you with the relevant information.
-              </p>
-
-            </div>
-
-            <form className="space-y-4 sm:space-y-5">
-
-              {/* Name + Company */}
-              <div className="grid sm:grid-cols-2 gap-4">
-
-                <div>
-                  <label className="block text-sm font-semibold mb-2">
-                    Full Name
-                  </label>
-
-                  <input
-                    type="text"
-                    placeholder="Your name"
-                    className="w-full min-w-0 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold mb-2">
-                    Company Name
-                  </label>
-
-                  <input
-                    type="text"
-                    placeholder="Company name"
-                    className="w-full min-w-0 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                  />
-                </div>
-
-              </div>
-
-              {/* Email + Phone */}
-              <div className="grid sm:grid-cols-2 gap-4">
-
-                <div>
-                  <label className="block text-sm font-semibold mb-2">
-                    Email Address
-                  </label>
-
-                  <input
-                    type="email"
-                    placeholder="you@example.com"
-                    className="w-full min-w-0 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold mb-2">
-                    Phone Number
-                  </label>
-
-                  <input
-                    type="tel"
-                    placeholder="+91"
-                    className="w-full min-w-0 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                  />
-                </div>
-
-              </div>
-
-              {/* Requirement */}
-              <div>
-
-                <label className="block text-sm font-semibold mb-2">
-                  Your Requirement
-                </label>
-
-                <textarea
-                  rows="5"
-                  placeholder="Tell us about your electrical requirement..."
-                  className="w-full min-w-0 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition resize-none"
-                />
-
-              </div>
-
-              {/* Button */}
-              <button
-                type="submit"
-                className="group w-full flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-5 py-4 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/20"
-              >
-                <span>Send Enquiry</span>
-
-                <FaArrowRight className="text-sm group-hover:translate-x-1 transition-transform duration-300" />
-              </button>
-
-            </form>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-  );
-};
-
-export default Contact;
+export default Contact
