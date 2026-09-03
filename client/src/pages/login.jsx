@@ -18,7 +18,7 @@ const Login = () => {
 
         try {
             const response = await axios.post(
-                "http://localhost:8000/auth/login",
+                 "https://mani-electricals.onrender.com/auth/login",
                 {
                     email,
                     password
