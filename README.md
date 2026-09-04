@@ -1,47 +1,64 @@
 # Mani Electricals & Electronics — Business Website
 
-A full-stack business website developed for **Mani Electricals & Electronics** to showcase electrical products, services, and company information while providing an admin panel for product management and customer enquiry handling.
+🌐 **Live Website:** [manielectricals.com](https://manielectricals.com)
 
-## 🚀 Features
+A **production-ready full-stack business website** developed for Mani Electricals & Electronics and deployed on a custom `.com` domain.
 
-* Responsive business website built with React.js
-* Product catalogue with product details and categories
-* Admin dashboard for managing products
-* Secure admin authentication using JWT
-* Password hashing with bcrypt
+The platform provides a professional product catalogue, company information, customer enquiry system, and a secure admin panel for managing products and content.
+
+## 🚀 Live Deployment
+
+* **Frontend:** React.js + Vite
+* **Backend:** Node.js + Express.js
+* **Database:** MongoDB
+* **Image Storage:** Cloudinary
+* **Authentication:** JWT
+* **Email Service:** Nodemailer
+* **Domain:** Custom `.com` domain
+* **Deployment:** Production deployment with live frontend and backend
+
+## ✨ Key Features
+
+* Responsive and production-ready business website
+* Product catalogue and product details
+* Secure admin dashboard
+* JWT-based admin authentication
+* Product CRUD operations
+* Cloudinary-based product image management
+* Customer enquiry form
+* Email notifications using Nodemailer
 * Forgot-password flow with email OTP
-* Product image upload and cloud storage using Cloudinary
-* Product create, update, and delete functionality
-* Customer enquiry form with email notifications
-* MongoDB database for users and product data
-* RESTful APIs using Node.js and Express.js
+* MongoDB-based persistent data storage
+* RESTful backend APIs
 
-## 🏗️ Architecture
+## 🏗️ System Architecture
 
 ```text
-React Frontend
-      │
-      │ REST API
-      ▼
-Node.js + Express Backend
-      │
-      ├── Authentication
-      │     └── JWT + bcrypt
-      │
-      ├── Product Management
-      │
-      ├── Enquiry Management
-      │     └── Nodemailer
-      │
-      ├── MongoDB
-      │
-      └── Cloudinary
-             └── Product Images
+                    Custom .com Domain
+                           │
+                           ▼
+                    React Frontend
+                           │
+                     REST API Calls
+                           │
+                           ▼
+                 Node.js + Express API
+                           │
+          ┌────────────────┼────────────────┐
+          │                │                │
+          ▼                ▼                ▼
+      MongoDB          Cloudinary       Nodemailer
+     Product/Data      Image Storage     Email/Enquiry
+          │
+          ▼
+      Admin System
+          │
+     JWT Authentication
 ```
 
 ## 🔐 Authentication
 
-The admin panel uses JWT-based authentication.
+The admin panel uses JWT-based authentication with bcrypt password hashing.
 
 ```text
 Admin Login
@@ -50,59 +67,47 @@ Admin Login
 Email + Password
      │
      ▼
-bcrypt Password Verification
+bcrypt Verification
      │
      ▼
 JWT Token
      │
      ▼
-Protected Admin Routes
+Protected Admin APIs
 ```
 
-The application also provides:
+The system also includes password recovery through **email OTP with expiration**.
 
-* Secure password hashing with bcrypt
-* JWT token validation middleware
-* Password change functionality
-* Forgot password using OTP
-* OTP expiration after 10 minutes
-
-## 📦 Product Management
+## 📦 Admin Product Management
 
 The admin can:
 
-* Add new products
-* Upload product images
-* Edit product information
-* Replace product images
+* Add products
+* Update products
 * Delete products
-* Manage product categories and details
+* Upload product images
+* Replace product images
+* Manage product information
 
-Product images are uploaded to **Cloudinary**, while product metadata is stored in MongoDB.
+Product images are stored on Cloudinary, while product data is persisted in MongoDB.
 
-## 📩 Customer Enquiries
+## 📩 Customer Enquiry System
 
-Customers can submit enquiries through the website with:
+Customers can submit business enquiries through the website.
 
-* Name
-* Company
-* Email
-* Phone
-* Requirement
-
-The backend validates the enquiry and sends the submitted information through **Nodemailer** email integration.
+The backend processes the enquiry and uses **Nodemailer** to send the enquiry details through email.
 
 ## 🛠️ Tech Stack
 
-### Frontend
+**Frontend**
 
 * React.js
+* Vite
 * React Router
 * Axios
 * Tailwind CSS
-* Vite
 
-### Backend
+**Backend**
 
 * Node.js
 * Express.js
@@ -114,59 +119,10 @@ The backend validates the enquiry and sends the submitted information through **
 * Multer
 * Cloudinary
 
-### Deployment / Services
+**Deployment & Services**
 
-* Render
+* Custom `.com` Domain
+* Production Deployment
 * MongoDB
 * Cloudinary
 * Gmail SMTP
-
-## 📁 Project Structure
-
-```text
-Mani-Electricals/
-│
-├── client/
-│   └── src/
-│       ├── components/
-│       ├── pages/
-│       ├── assets/
-│       └── utils/
-│
-└── server/
-    ├── config/
-    ├── controllers/
-    ├── middlewares/
-    ├── model/
-    ├── router/
-    └── server.js
-```
-
-## 🔄 Product Management Flow
-
-```text
-Admin
- │
- ▼
-Admin Dashboard
- │
- ▼
-Create / Update Product
- │
- ▼
-Express API
- │
- ├── Upload Image → Cloudinary
- │
- └── Product Data → MongoDB
- │
- ▼
-Updated Product Catalogue
-```
-
-## 🎯 Highlights
-
-* Built a complete production-style business website from frontend to backend.
-* Implemented an admin CMS-style workflow for product management.
-* Integrated authentication, cloud image storage, database persistence, and email communication.
-* Designed REST APIs for authentication, products, and customer enquiries.
