@@ -1,6 +1,6 @@
 # Mani Electricals & Electronics — Business Website
 
-🌐 **Live Website:** [manielectricals.com](https://meeranchi.com)
+🌐 **Live Website:** [meeranchi.com](https://meeranchi.com)
 
 A **production-ready full-stack business website** developed for Mani Electricals & Electronics and deployed on a custom `.com` domain.
 
